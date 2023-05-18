@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>叢集標記</title>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMokXEZgLYWWLoLlgesbjWb-4Ffp4Mf3U"></script>
+  <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
+</head>
+<body>
+  <div id="map" style="width: 1000px; height: 600px;"></div>
+
+  <script>
+    function initMap() {
+            const lipo = { lat: 24.3212981, lng: 120.6921946 };
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 15,
+                center: lipo,
+            });
+            const img = "img/placeholder.png"
+            // 創建標記
+            for(let i = 0; i < locations.length; i++){
+              const marker = new google.maps.Marker({
+                position: locations[i],
+                map: map,
+                title: park[i],
+                icon: img
+              });
+              const infowindow = new google.maps.InfoWindow({
+                  content: park[i],
+                  ariaLabel: park[i],
+              });
+              marker.addListener("click", () => {
+                  infowindow.open({
+                      anchor: marker,
+                      map,
+                  });
+              });
+            }
+            
+        }
+        const park = ["<h1>LIPOPARK</h1>", "LIPOHOTEL", "LIPOSHOP"];
+        const locations = [
+          { lat: 24.3212981, lng: 120.6921946 },
+          { lat: 24.321748610462542, lng: 120.69798011194513 },
+          { lat: 24.32381809733386,  lng: 120.70008531529744 },
+        ]
+
+        window.initMap = initMap;
+
+    // 載入地圖
+    initMap();
+  </script>
+</body>
+</html>
